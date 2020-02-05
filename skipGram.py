@@ -38,19 +38,20 @@ class SkipGram:
 
     def train(self):
         for counter, sentence in enumerate(self.trainset):
-            sentence = filter(lambda word: word in self.vocab, sentence)
+            sentence = filter(lambda word: word in self.vocab, sentence) #get a new sentence with words that are in both
+																			# vocab and sentence
 
             for wpos, word in enumerate(sentence):
-                wIdx = self.w2id[word]
-                winsize = np.random.randint(self.winSize) + 1
-                start = max(0, wpos - winsize)
-                end = min(wpos + winsize + 1, len(sentence))
+                wIdx = self.w2id[word]									# Get word ID of each word in sentence
+                winsize = np.random.randint(self.winSize) + 1			# Generate random window size
+                start = max(0, wpos - winsize)							# Define the start index of the window
+                end = min(wpos + winsize + 1, len(sentence))			# Define the end index of the window
 
-                for context_word in sentence[start:end]:
-                    ctxtId = self.w2id[context_word]
-                    if ctxtId == wIdx: continue
-                    negativeIds = self.sample({wIdx, ctxtId})
-                    self.trainWord(wIdx, ctxtId, negativeIds)
+                for context_word in sentence[start:end]:				# For every word in the window
+                    ctxtId = self.w2id[context_word]					# Get the ids of the context word
+                    if ctxtId == wIdx: continue							# Ensure you dont consider the "actual" word
+                    negativeIds = self.sample({wIdx, ctxtId})			# ?
+                    self.trainWord(wIdx, ctxtId, negativeIds)			# Use trainWord to train
                     self.trainWords += 1
 
             if counter % 1000 == 0:
