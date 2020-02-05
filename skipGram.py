@@ -8,8 +8,8 @@ from scipy.special import expit
 from sklearn.preprocessing import normalize
 
 
-__authors__ = ['author1','author2','author3']
-__emails__  = ['fatherchristmoas@northpole.dk','toothfairy@blackforest.no','easterbunny@greenfield.de']
+__authors__ = ['Philibert de BROGLIE','Sai Deepesh POKALA',]
+__emails__  = ['philibert.de-broglie@sutendt-cs.fr','saideepesh.pokala@student-cs.fr']
 
 def text2sentences(path):
 	# feel free to make a better tokenization/pre-processing
@@ -72,6 +72,11 @@ class SkipGram:
 		:param word2:
 		:return: a float \in [0,1] indicating the similarity (the higher the more similar)
 		"""
+		w1 = encode word1
+		w2 = encode word2
+
+		sim_sc = sc = np.dot(w1, w2)/(np.linalg.norm(w1)*np.linalg.norm(w2))
+		
 		raise NotImplementedError('implement it!')
 
 	@staticmethod
