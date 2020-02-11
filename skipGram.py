@@ -3,6 +3,7 @@ import argparse
 import pandas as pd
 
 # useful stuff
+import re
 import numpy as np
 from scipy.special import expit
 from sklearn.preprocessing import normalize
