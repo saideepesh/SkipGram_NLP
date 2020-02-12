@@ -17,7 +17,8 @@ def text2sentences(path):
 	sentences = []
 	with open(path) as f:
 		for l in f:
-			sentences.append( l.lower().split() )
+			l = re.sub(r'[^a-zA-Z_\s\']+', '', l) # remove special characters, numbers
+			sentences.append(l.lower().replace("'", " ").split()) #all lowercase, replace ' with a space and split at each word
 	return sentences
 
 def loadPairs(path):
@@ -43,7 +44,7 @@ class SkipGram:
 																			# vocab and sentence
 
             for wpos, word in enumerate(sentence):
-                wIdx = self.w2id[word]									# Get word ID of each word in sentence
+				wIdx = self.w2id[word]									# Get word ID of each word in sentence
                 winsize = np.random.randint(self.winSize) + 1			# Generate random window size
                 start = max(0, wpos - winsize)							# Define the start index of the window
                 end = min(wpos + winsize + 1, len(sentence))			# Define the end index of the window
