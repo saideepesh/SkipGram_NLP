@@ -29,9 +29,9 @@ def loadPairs(path):
 
 class SkipGram:
 	def __init__(self, sentences, nEmbed=100, negativeRate=5, winSize = 5, minCount = 5):
-		self.w2id = {} # word to ID mapping
-        self.trainset = {} # set of sentences
-        self.vocab = {} # list of valid words
+		self.w2id = {word: idx for idx, word in enumerate(self.vocab)} # word to ID mapping
+        self.trainset = sentences  # set of sentences
+        self.vocab = {word for word in sentences } # list of valid words
         raise NotImplementedError('implement it!')
 
     def sample(self, omit):
